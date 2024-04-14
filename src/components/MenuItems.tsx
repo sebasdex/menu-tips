@@ -8,7 +8,7 @@ interface Food {
 }
 function MenuItems({ menu }: { menu: Food[] }) {
   return (
-    <section className=" flex flex-col items-center gap-4 md:w-full md:flex-row md:items-start md:flex-wrap ">
+    <section className="flex flex-col items-center gap-4 md:w-full md:flex-row md:items-start md:flex-wrap ">
       {menu.map((food) => (
         <article
           key={food.id}
@@ -18,7 +18,7 @@ function MenuItems({ menu }: { menu: Food[] }) {
             <img
               src={food.src}
               alt={food.name}
-              className="w-44 h-44 object-right-center rounded-full object-cover border-4 border-orange-500"
+              className="w-44 h-44 object-right-center rounded-full object-cover border-4 border-orange-500 hover:opacity-70"
             />
           </button>
           <p className="font-bold text-xl mt-2">{food.name}</p>
