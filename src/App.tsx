@@ -5,9 +5,13 @@ import MenuIcon from "./components/icons/MenuIcon.tsx";
 import RecentOrders from "./components/RecentOrders.tsx";
 import { Food } from "./components/interfaces/food.interface.ts";
 function App() {
+  interface FoodQuantity extends Food {
+    quantity: number;
+  }
+
   const [menu] = useState(menuItems);
   const [menuOn, setMenuOn] = useState(false);
-  const [orders, setOrders] = useState<Array<Food>>([]);
+  const [orders, setOrders] = useState<FoodQuantity[]>([]);
 
   return (
     <>

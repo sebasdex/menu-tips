@@ -3,7 +3,11 @@ import { Food } from "./interfaces/food.interface";
 interface RecentOrdersMenu {
   menuOn: boolean;
   setMenuOn: (value: boolean) => void;
-  orders: Food[];
+  orders: FoodQuantity[];
+}
+
+interface FoodQuantity extends Food {
+  quantity: number;
 }
 function RecentOrders({ menuOn, setMenuOn, orders }: RecentOrdersMenu) {
   return (
@@ -20,7 +24,10 @@ function RecentOrders({ menuOn, setMenuOn, orders }: RecentOrdersMenu) {
         </button>
       </header>
       {orders.map((order) => (
-        <article className="p-2 border-b flex justify-between gap-4 m-2 bg-white">
+        <article
+          className="p-2 border-b flex justify-between gap-4 m-2 bg-white"
+          key={order.id}
+        >
           <img
             src={order.src}
             alt={order.name}
@@ -32,7 +39,9 @@ function RecentOrders({ menuOn, setMenuOn, orders }: RecentOrdersMenu) {
             <p className="text-orange-500 font-bold">${order.cost}</p>
             <div className="flex justify-between items-center w-16">
               <button className="bg-gray-200 w-5 h-5 rounded">-</button>
-              <p className="text-sm font-semibold text-gray-500">1</p>
+              <p className="text-sm font-semibold text-gray-500">
+                {order.quantity}
+              </p>
               <button className="bg-gray-200 w-5 h-5 rounded">+</button>
             </div>
           </div>

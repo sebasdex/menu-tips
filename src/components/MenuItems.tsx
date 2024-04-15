@@ -2,15 +2,28 @@ import { Food } from "./interfaces/food.interface";
 
 interface MenuItemsProps {
   menu: Food[];
-  orders: Food[];
-  setOrders: (value: Food[]) => void;
+  orders: FoodQuantity[];
+  setOrders: (value: FoodQuantity[]) => void;
+}
+
+interface FoodQuantity extends Food {
+  quantity: number;
 }
 
 function MenuItems({ menu, orders, setOrders }: MenuItemsProps) {
   const handleAdd = (id: Food["id"]) => {
-    const newOrder = menu.find((food) => food.id === id);
-    if (newOrder) {
-      setOrders([...orders, newOrder]);
+    const isItemInOrders = orders.some((order) => order.id === id);
+
+    if (isItemInOrders) {
+      const updatedOrders = orders.map((order) =>
+        order.id === id ? { ...order, quantity: order.quantity + 1 } : order
+      );
+      setOrders(updatedOrders);
+    } else {
+      const newOrder = menu.find((foodItem) => foodItem.id === id);
+      if (newOrder) {
+        setOrders([...orders, { ...newOrder, quantity: 1 }]);
+      }
     }
   };
   return (
