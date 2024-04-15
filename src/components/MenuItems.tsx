@@ -1,12 +1,18 @@
-interface Food {
-  id: number;
-  name: string;
-  type: string;
-  cost: number;
-  ingredients: string[];
-  src: string;
+import { Food } from "./interfaces/food.interface";
+
+interface MenuItemsProps {
+  menu: Food[];
+  orders: string[];
+  setOrders: (value: string[]) => void;
 }
-function MenuItems({ menu }: { menu: Food[] }) {
+
+function MenuItems({ menu, orders, setOrders }: MenuItemsProps) {
+  const handleAdd = (id: number) => {
+    const newOrder = menu.find((food) => food.id === id);
+    if (newOrder) {
+      setOrders([...orders, newOrder]);
+    }
+  };
   return (
     <section className="flex flex-col items-center gap-4 md:w-full md:flex-row md:items-start md:flex-wrap ">
       {menu.map((food) => (
@@ -14,7 +20,7 @@ function MenuItems({ menu }: { menu: Food[] }) {
           key={food.id}
           className="p-4 flex flex-col justify-center items-center text-center w-80 h-96 bg-white md:w-[calc(33%-0.5rem)]"
         >
-          <button>
+          <button onClick={() => handleAdd(food.id)}>
             <img
               src={food.src}
               alt={food.name}

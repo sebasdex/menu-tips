@@ -1,12 +1,4 @@
-interface Food {
-  id: number;
-  name: string;
-  type: string;
-  cost: number;
-  ingredients: string[];
-  src: string;
-}
-
+import { Food } from "../components/interfaces/food.interface";
 export const menuItems: Food[] = [
   {
     id: 1,
