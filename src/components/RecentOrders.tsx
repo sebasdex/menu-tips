@@ -1,3 +1,4 @@
+import OrderFooter from "./OrderFooter";
 import CloseIcon from "./icons/CloseIcon";
 import { Food } from "./interfaces/food.interface";
 interface RecentOrdersMenu {
@@ -11,7 +12,7 @@ interface FoodQuantity extends Food {
 }
 
 function RecentOrders({ menuOn, setMenuOn, orders }: RecentOrdersMenu) {
-  const totalCost = orders
+  const totalCost: string = orders
     .reduce((acc, order) => acc + order.cost * order.quantity, 0)
     .toFixed(2);
   const totalItems = orders.reduce((acc, order) => acc + order.quantity, 0);
@@ -58,23 +59,11 @@ function RecentOrders({ menuOn, setMenuOn, orders }: RecentOrdersMenu) {
           No hay ordenes recientes
         </p>
       )}
-      <footer className="p-2 bg-white flex flex-col gap-4 sticky bottom-0">
-        <div className="flex justify-between">
-          <p className="font-bold">Items({totalItems})</p>
-          <p className="font-bold">${totalCost}</p>
-        </div>
-        <div className="flex justify-between border-b pb-2">
-          <p>Propina 10%</p>
-          <p className="font-bold">$5.00</p>
-        </div>
-        <p>Total: ${totalCost}</p>
-        <button
-          className="w-full hover:bg-orange-100 h-10 rounded-xl bg-orange-500
-         text-white font-bold"
-        >
-          Pagar
-        </button>
-      </footer>
+      <OrderFooter
+        totalCost={totalCost}
+        totalItems={totalItems}
+        orders={orders}
+      />
     </section>
   );
 }
