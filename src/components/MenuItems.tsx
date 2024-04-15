@@ -2,12 +2,12 @@ import { Food } from "./interfaces/food.interface";
 
 interface MenuItemsProps {
   menu: Food[];
-  orders: string[];
-  setOrders: (value: string[]) => void;
+  orders: Food[];
+  setOrders: (value: Food[]) => void;
 }
 
 function MenuItems({ menu, orders, setOrders }: MenuItemsProps) {
-  const handleAdd = (id: number) => {
+  const handleAdd = (id: Food["id"]) => {
     const newOrder = menu.find((food) => food.id === id);
     if (newOrder) {
       setOrders([...orders, newOrder]);
