@@ -5,18 +5,48 @@ interface RecentOrdersMenu {
   menuOn: boolean;
   setMenuOn: (value: boolean) => void;
   orders: FoodQuantity[];
+  setOrders: (value: FoodQuantity[]) => void;
 }
 
 interface FoodQuantity extends Food {
   quantity: number;
 }
 
-function RecentOrders({ menuOn, setMenuOn, orders }: RecentOrdersMenu) {
+function RecentOrders({
+  menuOn,
+  setMenuOn,
+  orders,
+  setOrders,
+}: RecentOrdersMenu) {
   const totalCost: number = orders.reduce(
     (acc, order) => acc + order.cost * order.quantity,
     0
   );
   const totalItems = orders.reduce((acc, order) => acc + order.quantity, 0);
+
+  const handleIncrement = (id: Food["id"]) => {
+    const updatedOrders = orders.map((order) =>
+      order.quantity < 10 && order.id === id
+        ? {
+            ...order,
+            quantity: order.quantity + 1,
+          }
+        : order
+    );
+    setOrders(updatedOrders);
+  };
+
+  const handleDecrement = (id: Food["id"]) => {
+    const updatedOrders = orders.map((order) =>
+      order.quantity > 1 && order.id === id
+        ? {
+            ...order,
+            quantity: order.quantity - 1,
+          }
+        : order
+    );
+    setOrders(updatedOrders);
+  };
   return (
     <section
       className={`min-h-screen bg-white overflow-y-auto fixed inset-0 md:w-[40rem] md:block md:sticky lg:min-h-0
@@ -34,7 +64,7 @@ function RecentOrders({ menuOn, setMenuOn, orders }: RecentOrdersMenu) {
         {orders.length > 0 ? (
           orders.map((order) => (
             <article
-              className="p-2 border-b flex items-center justify-between gap-4 m-2 bg-white md:w-full"
+              className="p-2 border-b flex items-center gap-4 m-2 bg-white md:w-full"
               key={order.id}
             >
               <img
@@ -47,17 +77,31 @@ function RecentOrders({ menuOn, setMenuOn, orders }: RecentOrdersMenu) {
                 <p className="text-gray-500">{order.type}</p>
                 <p className="text-orange-500 font-bold">${order.cost}</p>
                 <div className="flex justify-between items-center w-16 mt-2">
-                  <button className="bg-gray-200 w-5 h-5 rounded flex items-center justify-center">
+                  <button
+                    className="bg-gray-200 w-5 h-5 rounded flex items-center justify-center"
+                    onClick={() => handleDecrement(order.id)}
+                  >
                     <span>-</span>
                   </button>
                   <p className="text-sm font-semibold text-gray-500">
                     {order.quantity}
                   </p>
-                  <button className="bg-gray-200 w-5 h-5 rounded flex items-center justify-center">
+                  <button
+                    className="bg-gray-200 w-5 h-5 rounded flex items-center justify-center"
+                    onClick={() => handleIncrement(order.id)}
+                  >
                     <span>+</span>
                   </button>
                 </div>
               </div>
+              <button
+                className="flex items-center justify-center font-bold pb-3 p-2 md:mr-4 rounded-full bg-red-500 text-white w-6 h-6 hover:bg-red-600"
+                onClick={() =>
+                  setOrders(orders.filter((item) => item.id !== order.id))
+                }
+              >
+                <span>x</span>
+              </button>
             </article>
           ))
         ) : (

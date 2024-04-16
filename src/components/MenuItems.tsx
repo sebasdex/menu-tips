@@ -16,7 +16,9 @@ function MenuItems({ menu, orders, setOrders }: MenuItemsProps) {
 
     if (isItemInOrders) {
       const updatedOrders = orders.map((order) =>
-        order.id === id ? { ...order, quantity: order.quantity + 1 } : order
+        order.id === id && order.quantity < 10
+          ? { ...order, quantity: order.quantity + 1 }
+          : order
       );
       setOrders(updatedOrders);
     } else {

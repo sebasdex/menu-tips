@@ -28,7 +28,12 @@ function App() {
       </header>
       <main className="p-4 min-h-screen flex flex-col bg-gray-100 md:flex-row md:items-start md:gap-4">
         <MenuItems menu={menu} orders={orders} setOrders={setOrders} />
-        <RecentOrders menuOn={menuOn} setMenuOn={setMenuOn} orders={orders} />
+        <RecentOrders
+          menuOn={menuOn}
+          setMenuOn={setMenuOn}
+          orders={orders}
+          setOrders={setOrders}
+        />
       </main>
     </>
   );
