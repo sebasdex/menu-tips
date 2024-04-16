@@ -34,24 +34,28 @@ function RecentOrders({ menuOn, setMenuOn, orders }: RecentOrdersMenu) {
         {orders.length > 0 ? (
           orders.map((order) => (
             <article
-              className="p-2 border-b flex justify-between gap-4 m-2 bg-white md:w-full"
+              className="p-2 border-b flex items-center justify-between gap-4 m-2 bg-white md:w-full"
               key={order.id}
             >
               <img
                 src={order.src}
                 alt={order.name}
-                className="min-w-24 h-24 object-cover"
+                className="w-20 h-20 object-cover rounded"
               />
               <div className="w-full">
                 <p className="font-bold">{order.name}</p>
                 <p className="text-gray-500">{order.type}</p>
                 <p className="text-orange-500 font-bold">${order.cost}</p>
-                <div className="flex justify-between items-center w-16">
-                  <button className="bg-gray-200 w-5 h-5 rounded">-</button>
+                <div className="flex justify-between items-center w-16 mt-2">
+                  <button className="bg-gray-200 w-5 h-5 rounded flex items-center justify-center">
+                    <span>-</span>
+                  </button>
                   <p className="text-sm font-semibold text-gray-500">
                     {order.quantity}
                   </p>
-                  <button className="bg-gray-200 w-5 h-5 rounded">+</button>
+                  <button className="bg-gray-200 w-5 h-5 rounded flex items-center justify-center">
+                    <span>+</span>
+                  </button>
                 </div>
               </div>
             </article>
