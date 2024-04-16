@@ -4,7 +4,7 @@ import { Food } from "./interfaces/food.interface";
 interface RecentOrdersMenu {
   orders: FoodQuantity[];
   totalItems: number;
-  totalCost: string;
+  totalCost: number;
 }
 
 interface FoodQuantity extends Food {
@@ -12,12 +12,12 @@ interface FoodQuantity extends Food {
 }
 function OrderFooter({ totalItems, totalCost, orders }: RecentOrdersMenu) {
   const [tip, setTip] = useState<number>(0);
-
+  const percentageTip = (tip / 100) * totalCost;
   return (
     <footer className="p-4 bg-white flex flex-col gap-4 sticky bottom-0">
       <div className="flex justify-between">
         <p className="font-bold">Items({totalItems})</p>
-        <p className="font-bold">${totalCost}</p>
+        <p className="font-bold">${totalCost.toFixed(2)}</p>
       </div>
       <p className="font-bold -mb-3">Propina</p>
       <div className="flex justify-between border-b pb-2">
@@ -47,9 +47,11 @@ function OrderFooter({ totalItems, totalCost, orders }: RecentOrdersMenu) {
           />
           <label htmlFor="tip">20%</label>
         </form>
-        <p className="font-bold">$0.00</p>
+        <p className="font-bold">${percentageTip.toFixed(2)}</p>
       </div>
-      <p className="font-bold">Total: ${totalCost}</p>
+      <p className="font-bold">
+        Total: ${(totalCost + percentageTip).toFixed(2)}
+      </p>
       <button
         className="w-full hover:bg-orange-100 h-10 rounded-xl bg-orange-500
          text-white font-bold disabled:bg-orange-300"

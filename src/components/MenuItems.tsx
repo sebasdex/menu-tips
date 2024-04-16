@@ -27,11 +27,11 @@ function MenuItems({ menu, orders, setOrders }: MenuItemsProps) {
     }
   };
   return (
-    <section className="flex flex-col items-center gap-4 md:w-full md:flex-row md:items-start md:flex-wrap ">
+    <section className="flex flex-col items-center gap-4 md:w-full lg:flex-row md:items-start md:flex-wrap">
       {menu.map((food) => (
         <article
           key={food.id}
-          className="p-4 flex flex-col justify-center items-center text-center w-80 h-96 bg-white md:w-[calc(33%-0.5rem)]"
+          className="p-4 flex flex-col justify-center items-center text-center w-80 h-96 bg-white md:w-full lg:w-[calc(33.33%-1rem)]"
         >
           <button onClick={() => handleAdd(food.id)}>
             <img

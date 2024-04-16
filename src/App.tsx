@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      <header className="p-4 bg-orange-500 text-white flex justify-between items-center">
+      <header className="p-4 bg-orange-500 text-white flex justify-between items-center md:justify-center">
         <h1 className="uppercase font-bold text-center text-xl">
           Menú de Comida
         </h1>
